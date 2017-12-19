@@ -8,4 +8,4 @@ LINE_STICKER_URL: 'http://dl.stickershop.line.naver.jp/products/'<br>
 '''<br>
 <br><br>'''<br>
 ----------------
-A
+
