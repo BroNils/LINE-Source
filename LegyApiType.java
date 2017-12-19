@@ -1,6 +1,7 @@
 
+    BEACON_QUERY_SERVICE("/api/v4p/bqs"),
     LONG_POLLING("/P4"),
-    NORMAL_POLLING("/NP4",
+    NORMAL_POLLING("/NP4"),
     NORMAL("/S4"),
     COMPACT_MESSAGE("/C5"),
     REGISTRATION("/api/v4/TalkService.do"),
