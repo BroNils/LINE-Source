@@ -1,25 +1,19 @@
-exception SquareException {
-    1: SQErrorCode errorCode;
-	2: ErrorExtraInfo errorExtraInfo;
-    3: string reason;
-}
-
 enum SQErrorCode {
     UNKNOWN = 0;
-	ILLEGAL_ARGUMENT = 400;
-	AUTHENTICATION_FAILURE = 401;
-	FORBIDDEN = 403;
-	NOT_FOUND = 404;
-	REVISION_MISMATCH = 409;
-	PRECONDITION_FAILED = 410;
-	INTERNAL_ERROR = 500;
-	NOT_IMPLEMENTED = 501;
-	TRY_AGAIN_LATER = 505;
+    ILLEGAL_ARGUMENT = 400;
+    AUTHENTICATION_FAILURE = 401;
+    FORBIDDEN = 403;
+    NOT_FOUND = 404;
+    REVISION_MISMATCH = 409;
+    PRECONDITION_FAILED = 410;
+    INTERNAL_ERROR = 500;
+    NOT_IMPLEMENTED = 501;
+    TRY_AGAIN_LATER = 505;
 }
 
 enum SquareType {
     CLOSED = 0;
-	OPEN = 1;
+    OPEN = 1;
 }
 
 enum ContentType {
@@ -42,18 +36,18 @@ enum ContentType {
     POSTNOTIFICATION = 16;
     RICH = 17;
     CHATEVENT = 18;
-	MUSIC = 19;
-	PAYMENT = 20;
-	EXTIMAGE = 21;
+    MUSIC = 19;
+    PAYMENT = 20;
+    EXTIMAGE = 21;
 }
 
 enum MIDType {
     USER = 0;
     ROOM = 1;
     GROUP = 2;
-	SQUARE = 3;
-	SQUARE_CHAT = 4;
-	SQUARE_MEMBER = 5;
+    SQUARE = 3;
+    SQUARE_CHAT = 4;
+    SQUARE_MEMBER = 5;
 }
 
 enum SquareMembershipState {
@@ -90,14 +84,14 @@ struct Location {
 
 struct SquarePreference {
     1: i64 favoriteTimestamp;
-	2: bool notiForNewJoinRequest;
+    2: bool notiForNewJoinRequest;
 }
 
 struct SquareStatus {
     1: i32 memberCount;
-	2: i32 joinRequestCount;
-	3: i64 lastJoinRequestAt;
-	4: i32 openChatCount;
+    2: i32 joinRequestCount;
+    3: i64 lastJoinRequestAt;
+    4: i32 openChatCount;
 }
 
 struct Message {
@@ -113,11 +107,11 @@ struct Message {
     15: ContentType contentType;
     17: string contentPreview;
     18: map<string, string> contentMetadata;
-	20: list<string> chunks;
-	21: string relatedMessageId;
-	22: i32 messageRelationType;
-	23: i32 readCount;
-	24: i32 relatedMessageServiceCode;
+    20: list<string> chunks;
+    21: string relatedMessageId;
+    22: i32 messageRelationType;
+    23: i32 readCount;
+    24: i32 relatedMessageServiceCode;
 }
 
 struct SquareMessage {
@@ -128,54 +122,57 @@ struct SquareMessage {
 
 struct Square {
     1: string mid;
-	2: string name;
-	3: string welcomeMessage;
-	4: string profileImageObsHash;
-	5: string desc;
-	6: bool searchable;
-	7: SquareType type;
-	9: string invitationURL;
-	10: i64 revision;
-	11: bool ableToUseInvitationTicket;
+    2: string name;
+    3: string welcomeMessage;
+    4: string profileImageObsHash;
+    5: string desc;
+    6: bool searchable;
+    7: SquareType type;
+    9: string invitationURL;
+    10: i64 revision;
+    11: bool ableToUseInvitationTicket;
 }
 
 struct SquareMember {
     1: string squareMemberMid;
-	2: string squareMid;
-	3: string displayName;
-	4: string profileImageObsHash;
-	5: bool ableToReceiveMessage;
-	7: SquareMembershipState membershipState;
-	8: SquareMemberRole role;
-	9: i64 revision;
-	10: SquarePreference preference;
-	11: string joinMessage;
+    2: string squareMid;
+    3: string displayName;
+    4: string profileImageObsHash;
+    5: bool ableToReceiveMessage;
+    7: SquareMembershipState membershipState;
+    8: SquareMemberRole role;
+    9: i64 revision;
+    10: SquarePreference preference;
+    11: string joinMessage;
 }
 
 struct ApprovedSquareMember {
     1: list<SquareMember> approvedMembers;
-	2: SquareStatus status;
+    2: SquareStatus status;
+}
+
+exception SquareException {
+    1: SQErrorCode errorCode;
+    2: ErrorExtraInfo errorExtraInfo;
+    3: string reason;
 }
 
 service SquareService {
 
     ApprovedSquareMember approveSquareMembers(
-	    2: string squareMid,
-	    3: list<string> requestedMemberMids) throws(1: SquareException e);
-		
-	createSquareChat(
-	
-	)
+        2: string squareMid,
+        3: list<string> requestedMemberMids) throws(1: SquareException e);
 
     SquareMessage sendMessage(
-	    1: i32 reqSeq,
-		2: string squareChatMid,
-		3: SquareMessage squareMessage) throws(1: SquareException e);
+        1: i32 reqSeq,
+        2: string squareChatMid,
+        3: SquareMessage squareMessage) throws(1: SquareException e);
 	
-	Square getSquare(
-	    2: string mid) throws(1: SquareException e);
+    Square getSquare(
+        2: string mid) throws(1: SquareException e);
 	
-	list<string> getJoinedSquares(
-	    2: string continuationToken,
-		3: i32 limit) throws(1: SquareException e);
+    list<string> getJoinedSquares(
+        2: string continuationToken,
+        3: i32 limit) throws(1: SquareException e);
+
 }
