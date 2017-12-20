@@ -30,7 +30,7 @@ LINE_STICKER_URL: 'http://dl.stickershop.line.naver.jp/products/'<br>
 > sourceType<br>
 > ruid<br>
 > <br>
-> #POST_REQUEST
+> #POST_REQUEST<br>
 > serviceCode (optional) <br>
 > contentId (optional)<br>
 > actorId=mid<br>
