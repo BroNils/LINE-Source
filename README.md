@@ -17,7 +17,7 @@ LINE_STICKER_URL: 'http://dl.stickershop.line.naver.jp/products/'<br>
 > sourceType<br>
 > ruid<br>
 > <br>
-> #POST_REQUEST
+> #POST_REQUEST<br>
 > commentText=comment <br>
 > activityExternalId=postId<br>
 > actorId=mid<br>
