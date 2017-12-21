@@ -3,4 +3,5 @@ byte 8 -> enum or i32
 byte 10 -> i64
 byte 11 -> string
 byte 12 -> struct
+byte 13 -> map<byte, byte>
 byte 15 -> list<byte>
