@@ -16,6 +16,19 @@ enum SquareType {
     OPEN = 1;
 }
 
+enum SquareChatType {
+    OPEN = 1;
+    SECRET = 2;
+    ONE_ON_ONE = 3;
+    SQUARE_DEFAULT = 4;
+}
+
+enum SquareChatState {
+    ALIVE = 0;
+    DELETED = 1;
+    SUSPENDED = 2;
+}
+
 enum ContentType {
     NONE = 0;
     IMAGE = 1;
@@ -70,6 +83,11 @@ enum PreconditionFailedExtraInfo {
     DUPLICATED_DISPLAY_NAME = 0;
 }
 
+enum SquareChatMembershipState {
+    JOINED = 1;
+    LEFT = 2;
+}
+
 struct ErrorExtraInfo {
     1: PreconditionFailedExtraInfo preconditionFailedExtraInfo;
 }
@@ -92,6 +110,17 @@ struct SquareStatus {
     2: i32 joinRequestCount;
     3: i64 lastJoinRequestAt;
     4: i32 openChatCount;
+}
+
+struct SquareChat {
+    1: string squareChatMid;
+    2: string squareMid;
+    3: SquareChatType type;
+    4: string name;
+    5: string chatImageObsHash;
+    6: i64 squareChatRevision;
+    7: i32 maxMemberCount;
+    8: SquareChatState state;
 }
 
 struct Message {
@@ -120,6 +149,25 @@ struct SquareMessage {
     4: i64 squareMessageRevision;
 }
 
+struct SquareChatStatusWithoutMessage {
+    1: i32 memberCount;
+    2: i32 unreadMessageCount;
+}
+
+struct SquareChatStatus {
+    3: SquareMessage lastMessage;
+    4: string senderDisplayName;
+    5: SquareChatStatusWithoutMessage otherStatus;
+}
+
+struct SquareChatMember {
+    1: string squareMemberMid;
+    2: string squareChatMid;
+    3: i64 revision;
+    4: SquareChatMembershipState membershipState;
+    5: bool notificationForMessage;
+}
+
 struct Square {
     1: string mid;
     2: string name;
@@ -128,9 +176,11 @@ struct Square {
     5: string desc;
     6: bool searchable;
     7: SquareType type;
+    8: i32 categoryID;
     9: string invitationURL;
     10: i64 revision;
     11: bool ableToUseInvitationTicket;
+    12: SquareChatState state;
 }
 
 struct SquareMember {
@@ -146,9 +196,36 @@ struct SquareMember {
     11: string joinMessage;
 }
 
-struct ApprovedSquareMember {
+struct SquareAuthority {
+    1: string squareMid;
+    2: SquareMemberRole updateSquareProfile;
+    3: SquareMemberRole inviteNewMember;
+    4: SquareMemberRole approveJoinRequest;
+    5: SquareMemberRole createPost;
+    6: SquareMemberRole createOpenSquareChat;
+    7: SquareMemberRole deleteSquareChatOrPost;
+    8: SquareMemberRole removeSquareMember;
+    9: SquareMemberRole grantRole;
+    10: SquareMemberRole enableInvitationTicket;
+    11: i64 revision;
+}
+
+struct ApproveSquareMembersResponse {
     1: list<SquareMember> approvedMembers;
     2: SquareStatus status;
+}
+
+struct CreateSquareChatResponse {
+    1: SquareChat squareChat;
+    2: SquareChatStatus squareChatStatus;
+    3: SquareChatMember squareChatMember;
+}
+
+struct CreateSquareResponse {
+    1: Square square;
+    2: SquareMember creator;
+    3: SquareAuthority authority;
+    4: SquareStatus status;
 }
 
 exception SquareException {
@@ -159,9 +236,14 @@ exception SquareException {
 
 service SquareService {
 
-    ApprovedSquareMember approveSquareMembers(
+    ApproveSquareMembersResponse approveSquareMembers(
         2: string squareMid,
         3: list<string> requestedMemberMids) throws(1: SquareException e);
+	
+    CreateSquareChatResponse createSquareChat(
+        1: i32 reqSeq,
+        2: SquareChat squareChat,
+        3: list<string> squareMemberMids) throws(1: SquareException e);
 
     SquareMessage sendMessage(
         1: i32 reqSeq,
