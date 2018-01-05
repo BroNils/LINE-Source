@@ -1,5 +1,5 @@
-byte 3 -> i64
 byte 2 -> boolean
+byte 3 -> i64
 byte 8 -> enum or i32
 byte 10 -> i64
 byte 11 -> string
