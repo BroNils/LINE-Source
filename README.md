@@ -11,7 +11,7 @@ LINE_STICKER_URL: 'http://dl.stickershop.line.naver.jp/products/'<br>
 ----------------
 <br><br>
 
-/api/v33/comment/create.json<br>
+/api/v33/comment/create.json (POST)<br>
 > #GET_REQUEST<br>
 > homeId<br>
 > sourceType<br>
@@ -24,7 +24,7 @@ LINE_STICKER_URL: 'http://dl.stickershop.line.naver.jp/products/'<br>
 <br>
 <br>
 
-/api/v33/post/create.json<br>
+/api/v33/post/create.json (POST)<br>
 > #GET_REQUEST<br>
 > homeId<br>
 > sourceType<br>
@@ -36,6 +36,17 @@ LINE_STICKER_URL: 'http://dl.stickershop.line.naver.jp/products/'<br>
 > actorId=mid<br>
 
 <br><br>
+
+/api/v33/post/sendPostToTalk.json (GET)<br>
+> #GET_REQUEST<br>
+> postId<br>
+> receiveMid<br>
+> <br>
+> #HEADER<br>
+> X-Line-Mid<br>
+> X-Line-ChannelToken<br>
+
+<br><br>
 /api/v33/relay/create.json<br>
 /api/v33/relay/update.json<br>
 /api/v33/relay/delete.json<br>
@@ -45,4 +56,3 @@ LINE_STICKER_URL: 'http://dl.stickershop.line.naver.jp/products/'<br>
 /api/v33/joinedrelay/list.json<br>
 /api/v33/home/updateCover.json<br>
 /api/v33/hashtag/search.json<br>
-/api/v33/post/sendPostToTalk.json<br>
