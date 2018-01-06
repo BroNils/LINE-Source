@@ -12,7 +12,7 @@ LINE_STICKER_URL: 'http://dl.stickershop.line.naver.jp/products/'<br>
 <br><br>
 
 /api/v33/comment/create.json (POST)<br>
-> #GET_REQUEST<br>
+> #GET_PARAM<br>
 > homeId<br>
 > sourceType<br>
 > ruid<br>
@@ -25,7 +25,7 @@ LINE_STICKER_URL: 'http://dl.stickershop.line.naver.jp/products/'<br>
 <br>
 
 /api/v33/post/create.json (POST)<br>
-> #GET_REQUEST<br>
+> #GET_PARAM<br>
 > homeId<br>
 > sourceType<br>
 > ruid<br>
@@ -38,7 +38,7 @@ LINE_STICKER_URL: 'http://dl.stickershop.line.naver.jp/products/'<br>
 <br><br>
 
 /api/v33/post/sendPostToTalk.json (GET)<br>
-> #GET_REQUEST<br>
+> #GET_PARAM<br>
 > postId<br>
 > receiveMid<br>
 > <br>
