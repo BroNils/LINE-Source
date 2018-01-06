@@ -1,3 +1,11 @@
+/*
+
+| Made by GoogleX
+| 
+| Copyright (c) 2018
+
+*/
+
 enum SQErrorCode {
     UNKNOWN = 0;
     ILLEGAL_ARGUMENT = 400;
