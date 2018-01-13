@@ -38,4 +38,5 @@
     BAN("/BAN4"),
     BAN_REGISTRATION("/api/v4p/ban"),
     LIFF("/LIFF1"),
+    WALLET("/WALLET4"),
     CHAT_APP("/CAPP1");
