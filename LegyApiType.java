@@ -36,4 +36,6 @@
     POINT("/POINT4"),
     COIN("/COIN4"),
     BAN("/BAN4"),
-    BAN_REGISTRATION("/api/v4p/ban");
+    BAN_REGISTRATION("/api/v4p/ban"),
+    LIFF("/LIFF1"),
+    CHAT_APP("/CAPP1");
