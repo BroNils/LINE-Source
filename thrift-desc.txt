@@ -5,4 +5,5 @@ byte 10 -> i64
 byte 11 -> string
 byte 12 -> struct
 byte 13 -> map<byte, byte>
+byte 14 -> list<byte>
 byte 15 -> list<byte>
