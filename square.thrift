@@ -1,4 +1,4 @@
-/**sqs.thrift**
+/**square.thrift**
 
 
 | Author: GoogleX
@@ -700,7 +700,7 @@ struct DestroyMessageRequest {
 
 struct DestroyMessagesRequest {
     2: string squareChatMid;
-	4: list<string> messageIds;
+	4: set<string> messageIds;
 }
 
 struct DestroyMessagesResponse {}
