@@ -1,8 +1,12 @@
-/*
+/**sqs.thrift**
 
-| Made by GoogleX
+
+| Author: GoogleX
+| Special Thanks: HelloTan
+| LINE Version: 7.18
 | 
 | Copyright (c) 2018
+
 
 */
 
@@ -53,6 +57,73 @@ enum SquareEventType {
     NOTIFICATION_SQUARE_DELETE = 27;
     NOTIFICATION_SQUARE_CHAT_DELETE = 28;
     NOTIFICATION_MESSAGE = 29;
+}
+
+enum SquareAttribute {
+    NAME = 1;
+    WELCOME_MESSAGE = 2;
+    PROFILE_IMAGE = 3;
+    DESCRIPTION = 4;
+    SEARCHABLE = 6;
+    CATEGORY = 7;
+    INVITATION_URL = 8;
+    ABLE_TO_USE_INVITATION_URL = 9;
+    STATE = 10;
+}
+
+enum SquarePreferenceAttribute {
+    FAVORITE = 1;
+    NOTI_FOR_NEW_JOIN_REQUEST = 2;
+}
+
+enum SquareMemberAttribute {
+    DISPLAY_NAME = 1;
+    PROFILE_IMAGE = 2;
+    ABLE_TO_RECEIVE_MESSAGE = 3;
+    MEMBERSHIP_STATE = 5;
+    ROLE = 6;
+    PREFERENCE = 7;
+}
+
+enum SquareMemberRelationAttribute {
+    BLOCKED = 0;
+}
+
+enum SquareFeatureSetAttribute {
+    CREATING_SECRET_SQUARE_CHAT = 1;
+    INVITING_INTO_OPEN_SQUARE_CHAT = 2;
+}
+
+enum SquareChatAttribute {
+    NAME = 2;
+    SQUARE_CHAT_IMAGE = 3;
+    STATE = 4;
+    TYPE = 5;
+}
+
+enum SquareChatMemberAttribute {
+    MEMBERSHIP_STATE = 4;
+    NOTIFICATION_MESSAGE = 6;
+}
+
+enum SquareAuthorityAttribute {
+    UPDATE_SQUARE_PROFILE = 1;
+    INVITE_NEW_MEMBER = 2;
+    APPROVE_JOIN_REQUEST = 3;
+    CREATE_POST = 4;
+    CREATE_OPEN_SQUARE_CHAT = 5;
+    DELETE_SQUARE_CHAT_OR_POST = 6;
+    REMOVE_SQUARE_MEMBER = 7;
+    GRANT_ROLE = 8;
+    ENABLE_INVITATION_TICKET = 9;
+    CREATE_CHAT_ANNOUNCEMENT = 10;
+}
+
+enum ReportType {
+    ADVERTISING = 1;
+    GENDER_HARASSMENT = 2;
+    HARASSMENT = 3;
+    OTHER = 4;
 }
 
 enum SquareMemberRelationState {
@@ -156,6 +227,10 @@ enum SquareEventStatus {
 enum FetchDirection {
     FORWARD = 1;
     BACKWARD = 2;
+}
+
+enum SquareChatAnnouncementType {
+    TEXT_MESSAGE = 0;
 }
 
 struct ErrorExtraInfo {
@@ -518,6 +593,38 @@ struct Category {
     2: string name;
 }
 
+struct TextMessageAnnouncementContents {
+    1: string messageId;
+	2: string text;
+	3: string senderSquareMemberMid;
+	4: i64 createdAt;
+}
+
+struct SquareChatAnnouncementContents {
+    1: TextMessageAnnouncementContents textMessageAnnouncementContents;
+}
+
+struct SquareChatAnnouncement {
+    1: i64 announcementSeq;
+	2: SquareChatAnnouncementType type;
+	3: SquareChatAnnouncementContents contents;
+}
+
+struct NoteStatus {
+    1: i32 noteCount;
+	2: i64 latestCreatedAt;
+}
+
+struct SquareMemberSearchOption {
+	1: SquareMembershipState membershipState;
+	2: set<SquareMemberRole> memberRoles;
+	3: string displayName;
+	4: BooleanState ableToReceiveMessage;
+	5: BooleanState ableToReceiveFriendRequest;
+	6: string chatMidToExcludeMembers;
+	7: bool includingMe;
+}
+
 struct ApproveSquareMembersResponse {
     1: list<SquareMember> approvedMembers;
     2: SquareStatus status;
@@ -526,6 +633,16 @@ struct ApproveSquareMembersResponse {
 struct ApproveSquareMembersRequest {
     2: string squareMid;
     3: list<string> requestedMemberMids;
+}
+
+struct CreateSquareChatAnnouncementRequest {
+    1: i32 reqSeq;
+	2: string squareChatMid;
+	3: SquareChatAnnouncement squareChatAnnouncement;
+}
+
+struct CreateSquareChatAnnouncementResponse {
+    1: SquareChatAnnouncement announcement;
 }
 
 struct CreateSquareChatResponse {
@@ -553,6 +670,13 @@ struct CreateSquareRequest {
     3: SquareMember creator;
 }
 
+struct DeleteSquareChatAnnouncementRequest {
+    1: string squareChatMid;
+	2: i64 announcementSeq;
+}
+
+struct DeleteSquareChatAnnouncementResponse {}
+
 struct DeleteSquareChatResponse {}
 
 struct DeleteSquareChatRequest {
@@ -574,6 +698,42 @@ struct DestroyMessageRequest {
     4: string messageId;
 }
 
+struct DestroyMessagesRequest {
+    2: string squareChatMid;
+	4: list<string> messageIds;
+}
+
+struct DestroyMessagesResponse {}
+
+struct FetchMyEventsResponse {
+    1: SubscriptionState subscription;
+    2: list<SquareEvent> events;
+    3: string syncToken;
+    4: string continuationToken;
+}
+
+struct FetchMyEventsRequest {
+    1: i64 subscriptionId;
+    2: string syncToken;
+    3: i32 limit;
+    4: string continuationToken;
+}
+
+struct FetchSquareChatEventsResponse {
+    1: SubscriptionState subscription;
+    2: list<SquareEvent> events;
+    3: string syncToken;
+    4: string continuationToken;
+}
+
+struct FetchSquareChatEventsRequest {
+    1: i64 subscriptionId;
+    2: string squareChatMid;
+    3: string syncToken;
+    4: i32 limit;
+    5: FetchDirection direction;
+}
+
 struct FindSquareByInvitationTicketResponse {
     1: Square square;
     2: SquareMember myMembership
@@ -591,6 +751,426 @@ struct GetSquareCategoriesResponse {
 
 struct GetSquareCategoriesRequest {}
 
+struct GetInvitationTicketUrlRequest {
+    2: string mid;
+}
+
+struct GetInvitationTicketUrlResponse {
+    1: string invitationURL;
+}
+
+struct GetJoinableSquareChatsRequest {
+    1: string squareMid;
+	10: string continuationToken;
+	11: i32 limit;
+}
+
+struct GetJoinableSquareChatsResponse {
+    1: list<SquareChat> squareChats;
+	2: string continuationToken;
+	3: i32 totalSquareChatCount;
+	4: map<string, SquareChatStatus> squareChatStatuses
+}
+
+struct GetJoinedSquareChatsRequest {
+    2: string continuationToken;
+	3: i32 limit;
+}
+
+struct GetJoinedSquareChatsResponse {
+    1: list<SquareChat> chats;
+	2: map<string, SquareChatMember> chatMembers;
+	3: map<string, SquareChatStatus> statuses;
+	4: string continuationToken;
+}
+
+struct GetJoinedSquaresRequest {
+    2: string continuationToken;
+	3: i32 limit;
+}
+
+struct GetJoinedSquaresResponse {
+    1: list<Square> squares;
+	2: map<string, SquareMember> members;
+	3: map<string, SquareAuthority> authorities;
+	4: map<string, SquareStatus> statuses;
+	5: string continuationToken;
+	6: map<string, NoteStatus> noteStatuses;
+}
+
+struct GetNoteStatusRequest {
+    2: string squareMid;
+}
+
+struct GetNoteStatusResponse {
+    1: string squareMid;
+}
+
+struct GetSquareAuthorityRequest {
+    1: string squareMid;
+}
+
+struct GetSquareAuthorityResponse {
+    1: SquareAuthority authority;
+}
+
+struct GetSquareChatAnnouncementsRequest {
+    2: string squareChatMid;
+}
+
+struct GetSquareChatAnnouncementsResponse {
+    1: list<SquareChatAnnouncement> announcements;
+}
+
+struct GetSquareChatMembersRequest {
+    1: string squareChatMid;
+	2: string continuationToken;
+	3: i32 limit;
+}
+
+struct GetSquareChatMembersResponse {
+    1: list<SquareMember> squareChatMembers;
+	2: string continuationToken;
+}
+
+struct GetSquareChatStatusRequest {
+    2: string squareChatMid;
+}
+
+struct GetSquareChatStatusResponse {
+    1: SquareChatStatus chatStatus;
+}
+
+struct GetSquareChatRequest {
+    1: string squareChatMid;
+}
+
+struct GetSquareChatResponse {
+    1: SquareChat squareChat;
+	2: SquareChatMember squareChatMember;
+	3: SquareChatStatus squareChatStatus;
+}
+
+struct GetSquareFeatureSetRequest {
+    2: string squareMid;
+}
+
+struct GetSquareFeatureSetResponse {
+    1: SquareFeatureSet squareFeatureSet;
+}
+
+struct GetSquareMemberRelationRequest {
+    2: string squareMid;
+	3: string targetSquareMemberMid;
+}
+
+struct GetSquareMemberRelationResponse {
+    1: string squareMid;
+	2: string targetSquareMemberMid;
+	3: SquareMemberRelation relation;
+}
+
+struct GetSquareMemberRelationsRequest {
+    2: SquareMemberRelationState state;
+	3: string continuationToken;
+	4: i32 limit;
+}
+
+struct GetSquareMemberRelationsResponse {
+    1: list<SquareMember> squareMembers;
+	2: map<string, SquareMemberRelation> relations;
+	3: string continuationToken;
+}
+
+struct GetSquareMemberRequest {
+    2: string squareMemberMid;
+}
+
+struct GetSquareMemberResponse {
+    1: SquareMember squareMember;
+	2: SquareMemberRelation relation;
+	3: string oneOnOneChatMid;
+}
+
+struct GetSquareMembersRequest {
+    2: list<string> mids;
+}
+
+struct GetSquareMembersResponse {
+    1: map<string, SquareMember> members;
+}
+
+struct GetSquareStatusRequest {
+    2: string squareMid;
+}
+
+struct GetSquareStatusResponse {
+    1: SquareStatus squareStatus;
+}
+
+struct GetSquareRequest {
+    2: string mid;
+}
+
+struct GetSquareResponse {
+    1: Square square;
+	2: SquareMember myMembership;
+	3: SquareAuthority squareAuthority;
+	4: SquareStatus squareStatus;
+	5: SquareFeatureSet squareFeatureSet;
+	6: NoteStatus noteStatus;
+}
+
+struct InviteIntoSquareChatRequest {
+    1: list<string> inviteeMids;
+	2: string squareChatMid;
+}
+
+struct InviteIntoSquareChatResponse {
+    1: list<string> inviteeMids;
+}
+
+struct InviteToSquareRequest {
+    2: string squareMid;
+	3: list<string> invitees;
+	4: string squareChatMid;
+}
+
+struct InviteToSquareResponse {}
+
+struct JoinSquareChatRequest {
+    1: string squareChatMid;
+}
+
+struct JoinSquareChatResponse {
+    1: SquareChat squareChat;
+	2: SquareChatStatus squareChatStatus;
+	3: SquareChatMember squareChatMember;
+}
+
+struct JoinSquareRequest {
+    2: string squareMid;
+	3: SquareMember member;
+}
+
+struct JoinSquareResponse {
+    1: Square square;
+	2: SquareAuthority squareAuthority;
+	3: SquareStatus squareStatus;
+	4: SquareMember squareMember;
+	5: SquareFeatureSet squareFeatureSet;
+	6: NoteStatus noteStatus;
+}
+
+struct LeaveSquareChatRequest {
+    2: string squareChatMid;
+	3: bool sayGoodbye;
+	4: i64 squareChatMemberRevision;
+}
+
+struct LeaveSquareChatResponse {}
+
+struct LeaveSquareRequest {
+    2: string squareMid;
+}
+
+struct LeaveSquareResponse {}
+
+struct MarkAsReadRequest {
+    2: string squareChatMid;
+	4: string messageId;
+}
+
+struct MarkAsReadResponse {}
+
+struct RefreshSubscriptionsRequest {
+    2: list<i64> subscriptions;
+}
+
+struct RefreshSubscriptionsResponse {
+    1: i64 ttlMillis;
+	2: map<string, SubscriptionState> subscriptionStates;
+}
+
+struct RejectSquareMembersRequest {
+    2: string squareMid;
+	3: list<string> requestedMemberMids;
+}
+
+struct RejectSquareMembersResponse {
+    1: list<SquareMember> rejectedMembers;
+	2: SquareStatus squareStatus;
+}
+
+struct RemoveSubscriptionsRequest {
+	2: list<i64> unsubscriptions;
+}
+
+struct RemoveSubscriptionsResponse {}
+
+struct ReportSquareChatRequest {
+	2: string squareMid;
+	3: string squareChatMid;
+	5: ReportType reportType;
+	6: string otherReason;
+}
+
+struct ReportSquareChatResponse {}
+
+struct ReportSquareMemberRequest {
+    2: string squareMemberMid;
+	3: ReportType reportType;
+	4: string otherReason;
+	5: string squareChatMid;
+}
+
+struct ReportSquareMemberResponse {}
+
+struct ReportSquareMessageRequest {
+	2: string squareMid;
+	3: string squareChatMid;
+	4: string squareMessageId;
+	5: ReportType reportType;
+	6: string otherReason;
+}
+
+struct ReportSquareMessageResponse {}
+
+struct ReportSquareRequest {
+	2: string squareMid;
+	3: ReportType reportType;
+	4: string otherReason;
+}
+
+struct ReportSquareResponse {}
+
+struct SearchSquareMembersRequest {
+	2: string squareMid;
+	3: SquareMemberSearchOption searchOption;
+	4: string continuationToken;
+	5: i32 limit;
+}
+
+struct SearchSquareMembersResponse {
+	1: list<SquareMember> members;
+	2: i64 revision;
+	3: string continuationToken;
+	4: i32 totalCount;
+}
+
+struct SearchSquaresRequest {
+	2: string query;
+	3: string continuationToken;
+	4: i32 limit;
+}
+
+struct SearchSquaresResponse {
+	1: list<Square> squares;
+	2: map<string, SquareStatus> squareStatuses;
+	3: map<string, SquareMember> myMemberships;
+	4: string continuationToken;
+}
+
+struct SendMessageRequest {
+	1: i32 reqSeq;
+	2: string squareChatMid;
+	3: SquareMessage squareMessage;
+}
+
+struct SendMessageResponse {
+	1: SquareMessage createdSquareMessage;
+}
+
+struct SubscriptionNotification {
+	1: i64 subscriptionId;
+}
+
+struct UpdateSquareAuthorityRequest {
+	2: set<SquareAuthorityAttribute> updateAttributes;
+	3: SquareAuthority authority;
+}
+
+struct UpdateSquareAuthorityResponse {
+	1: set<SquareAuthorityAttribute> updatdAttributes;
+	2: SquareAuthority authority;
+}
+
+struct UpdateSquareChatMemberRequest {
+	2: set<SquareChatMemberAttribute> updatedAttrs;
+	3: SquareChatMember chatMember;
+}
+
+struct UpdateSquareChatMemberResponse {
+	1: SquareChatMember updatedChatMember;
+}
+
+struct UpdateSquareChatRequest {
+	2: set<SquareChatAttribute> updatedAttrs;
+	3: SquareChat squareChat;
+}
+
+struct UpdateSquareChatResponse {
+	1: set<SquareChatAttribute> updatedAttrs;
+	2: SquareChat squareChat;
+}
+
+struct UpdateSquareFeatureSetRequest {
+	2: set<SquareFeatureSetAttribute> updateAttributes;
+	3: SquareFeatureSet squareFeatureSet;
+}
+
+struct UpdateSquareFeatureSetResponse {
+	1: set<SquareFeatureSetAttribute> updateAttributes;
+	2: SquareFeatureSet squareFeatureSet;
+}
+
+struct UpdateSquareMemberRelationRequest {
+	2: string squareMid;
+	3: string targetSquareMemberMid;
+	4: set<SquareMemberRelationAttribute> updatedAttrs;
+	5: SquareMemberRelation relation;
+}
+
+struct UpdateSquareMemberRelationResponse {
+	1: string squareMid;
+	2: string targetSquareMemberMid;
+	3: set<SquareMemberRelationAttribute> updatedAttrs;
+	4: SquareMemberRelation relation;
+}
+
+struct UpdateSquareMemberRequest {
+	2: set<SquareMemberAttribute> updatedAttrs;
+	3: set<SquarePreferenceAttribute> updatedPreference;
+	4: SquareMember squareMember;
+}
+
+struct UpdateSquareMemberResponse {
+	1: set<SquareMemberAttribute> updatedAttrs;
+	2: SquareMember squareMember;
+	3: set<SquarePreferenceAttribute> updatedPreferenceAttrs;
+}
+
+struct UpdateSquareMembersRequest {
+	2: set<SquareMemberAttribute> updatedAttrs;
+	3: list<SquareMember> members;
+}
+
+struct UpdateSquareMembersResponse {
+	1: set<SquareMemberAttribute> updatedAttrs;
+	2: SquareMember editor;
+	3: map<string, SquareMember> members;
+}
+
+struct UpdateSquareRequest {
+	2: set<SquareAttribute> updatedAttrs;
+	3: Square square;
+}
+
+struct UpdateSquareResponse {
+	1: set<SquareAttribute> updatedAttrs;
+	2: Square square;
+}
+
 exception SquareException {
     1: SQErrorCode errorCode;
     2: ErrorExtraInfo errorExtraInfo;
@@ -602,11 +1182,17 @@ service SquareService {
     ApproveSquareMembersResponse approveSquareMembers(
         1: ApproveSquareMembersRequest request) throws(1: SquareException e);
 	
+	CreateSquareChatAnnouncementResponse createSquareChatAnnouncement(
+	    1: CreateSquareChatAnnouncementRequest createSquareChatAnnouncementRequest) throws(1: SquareException e);
+	
     CreateSquareChatResponse createSquareChat(
         1: CreateSquareChatRequest request) throws(1: SquareException e);
 	
     CreateSquareResponse createSquare(
         1: CreateSquareRequest request) throws(1: SquareException e);
+		
+	DeleteSquareChatAnnouncementResponse deleteSquareChatAnnouncement(
+	    1: DeleteSquareChatAnnouncementRequest deleteSquareChatAnnouncementRequest) throws(1: SquareException e);
 	
     DeleteSquareChatResponse deleteSquareChat(
         1: DeleteSquareChatRequest request) throws(1: SquareException e);
@@ -616,11 +1202,146 @@ service SquareService {
 	
     DestroyMessageResponse destroyMessage(
         1: DestroyMessageRequest request) throws(1: SquareException e);
+		
+	DestroyMessagesResponse destroyMessages(
+	    1: DestroyMessagesRequest request) throws(1: SquareException e);
+	
+    FetchMyEventsResponse fetchMyEvents(
+	    1: FetchMyEventsRequest request) throws(1: SquareException e);
+	
+    FetchSquareChatEventsResponse fetchSquareChatEvents(
+	    1: FetchSquareChatEventsRequest request) throws(1: SquareException e);
 	
     FindSquareByInvitationTicketResponse findSquareByInvitationTicket(
-	1: FindSquareByInvitationTicketRequest request) throws(1: SquareException e);
+	    1: FindSquareByInvitationTicketRequest request) throws(1: SquareException e);
 	
     GetSquareCategoriesResponse getCategories(
-	1: GetSquareCategoriesRequest request) throws(1: SquareException e);
+	    1: GetSquareCategoriesRequest request) throws(1: SquareException e);
+	
+	GetInvitationTicketUrlResponse getInvitationTicketUrl(
+	    1: GetInvitationTicketUrlRequest request) throws(1: SquareException e);
+		
+	GetJoinableSquareChatsResponse getJoinableSquareChats(
+	    1: GetJoinableSquareChatsRequest request) throws(1: SquareException e);
+		
+	GetJoinedSquareChatsResponse getJoinedSquareChats(
+	    1: GetJoinedSquareChatsRequest request) throws(1: SquareException e);
+		
+	GetJoinedSquaresResponse getJoinedSquares(
+	    1: GetJoinedSquaresRequest request) throws(1: SquareException e);
+		
+	GetNoteStatusResponse getNoteStatus(
+	    1: GetNoteStatusRequest request) throws(1: SquareException e);
+		
+	GetSquareAuthorityResponse getSquareAuthority(
+	    1: GetSquareAuthorityRequest request) throws(1: SquareException e);
+		
+	GetSquareChatAnnouncementsResponse getSquareChatAnnouncements(
+	    1: GetSquareChatAnnouncementsRequest getSquareChatAnnouncementsRequest) throws(1: SquareException e);
+		
+	GetSquareChatMembersResponse getSquareChatMembers(
+	    1: GetSquareChatMembersRequest request) throws(1: SquareException e);
+		
+	GetSquareChatStatusResponse getSquareChatStatus(
+	    1: GetSquareChatStatusRequest request) throws(1: SquareException e);
+		
+	GetSquareChatResponse getSquareChat(
+	    1: GetSquareChatRequest request) throws(1: SquareException e);
+		
+	GetSquareFeatureSetResponse getSquareFeatureSet(
+	    1: GetSquareFeatureSetRequest request) throws(1: SquareException e);
+		
+	GetSquareMemberRelationResponse getSquareMemberRelation(
+	    1: GetSquareMemberRelationRequest request) throws(1: SquareException e);
+		
+	GetSquareMemberRelationsResponse getSquareMemberRelations(
+	    1: GetSquareMemberRelationsRequest request) throws(1: SquareException e);
+		
+	GetSquareMemberResponse getSquareMember(
+	    1: GetSquareMemberRequest request) throws(1: SquareException e);
+		
+	GetSquareMembersResponse getSquareMembers(
+	    1: GetSquareMembersRequest request) throws(1: SquareException e);
+		
+	GetSquareStatusResponse getSquareStatus(
+	    1: GetSquareStatusRequest request) throws(1: SquareException e);
+		
+	GetSquareResponse getSquare(
+	    1: GetSquareRequest request) throws(1: SquareException e);
+		
+	InviteIntoSquareChatResponse inviteIntoSquareChat(
+	    1: InviteIntoSquareChatRequest request) throws(1: SquareException e);
+		
+	InviteToSquareResponse inviteToSquare(
+	    1: InviteToSquareRequest request) throws(1: SquareException e);
+		
+	JoinSquareChatResponse joinSquareChat(
+	    1: JoinSquareChatRequest request) throws(1: SquareException e);
+		
+	JoinSquareResponse joinSquare(
+	    1: JoinSquareRequest square) throws(1: SquareException e);
+		
+	LeaveSquareChatResponse leaveSquareChat(
+	    1: LeaveSquareChatRequest request) throws(1: SquareException e);
+		
+	LeaveSquareResponse leaveSquare(
+	    1: LeaveSquareRequest request) throws(1: SquareException e);
+		
+	MarkAsReadResponse markAsRead(
+	    1: MarkAsReadRequest request) throws(1: SquareException e);
+		
+	RefreshSubscriptionsResponse refreshSubscriptions(
+	    1: RefreshSubscriptionsRequest request) throws(1: SquareException e);
+		
+	RejectSquareMembersResponse rejectSquareMembers(
+	    1: RejectSquareMembersRequest request) throws(1: SquareException e);
+		
+	RemoveSubscriptionsResponse removeSubscriptions(
+    	1: RemoveSubscriptionsRequest request) throws (1: SquareException e);
+    
+    ReportSquareChatResponse reportSquareChat(
+    	1: ReportSquareChatRequest request) throws (1: SquareException e);
+		
+	ReportSquareMemberResponse reportSquareMember(
+	    1: ReportSquareMemberRequest request) throws (1: SquareException e);
+    
+    ReportSquareMessageResponse reportSquareMessage(
+    	1: ReportSquareMessageRequest request) throws (1: SquareException e);
+    
+    ReportSquareResponse reportSquare(
+    	1: ReportSquareRequest request) throws (1: SquareException e);
+    
+    SearchSquareMembersResponse searchSquareMembers(
+    	1: SearchSquareMembersRequest request) throws (1: SquareException e);
+    
+    SearchSquaresResponse searchSquares(
+    	1: SearchSquaresRequest request) throws (1: SquareException e);
+    
+    SendMessageResponse sendMessage(
+    	1: SendMessageRequest request) throws (1: SquareException e);
+    
+    UpdateSquareAuthorityResponse updateSquareAuthority(
+    	1: UpdateSquareAuthorityRequest request) throws (1: SquareException e);
+    
+    UpdateSquareChatMemberResponse updateSquareChatMember(
+    	1: UpdateSquareChatMemberRequest request) throws (1: SquareException e);
+    
+    UpdateSquareChatResponse updateSquareChat(
+    	1: UpdateSquareChatRequest request) throws (1: SquareException e);
+    
+    UpdateSquareFeatureSetResponse updateSquareFeatureSet(
+    	1: UpdateSquareFeatureSetRequest request) throws (1: SquareException e);
+    
+    UpdateSquareMemberRelationResponse updateSquareMemberRelation(
+    	1: UpdateSquareMemberRelationRequest request) throws (1: SquareException e);
+    
+    UpdateSquareMemberResponse updateSquareMember(
+    	1: UpdateSquareMemberRequest request) throws (1: SquareException e);
+    
+    UpdateSquareMembersResponse updateSquareMembers(
+    	1: UpdateSquareMembersRequest request) throws (1: SquareException e);
+
+    UpdateSquareResponse updateSquare(
+    	1: UpdateSquareRequest request) throws (1: SquareException e);
 
 }
