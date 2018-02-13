@@ -1,0 +1,73 @@
+
+Base:	https://gd2.line.naver.jp/mh/api
+		https://gd2.line.naver.jp/mh/
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+/api/v39/post/create.json
+/api/v39/post/update.json
+/api/v39/post/list.json
+/api/v39/post/get.json
+/api/v39/post/delete.json
+/api/v39/post/getStatus.json
+/api/v39/post/sendPostToTalk.json
+/api/v39/post/report.json
+/api/v39/post/getShareLink.json
+
+/api/v39/feed/list.json
+/api/v39/feed/get.json
+
+/api/v39/comment/create.json
+/api/v39/comment/getList.json
+
+/api/v39/comment/delete.json
+/api/v39/like/create.json
+/api/v39/like/cancel.json
+/api/v39/like/get.json
+/api/v39/like/getList.json
+/api/v24/like/cancel/sharedPost.json
+
+/api/v24/otoaccount/sync.json
+/api/v24/otoaccount/get.json
+/api/v24/otoaccount/create.json
+
+/api/v24/grouphome/hide/list.json
+/api/v39/home/updateCover.json
+/api/v24/group/profileimage/list.json
+
+/api/v1/userpopup/getDetail.json
+/api/v1/profile/get.json
+/api/v24/grouphome/isnew.json
+/api/v27/hashtag/suggest.json
+/api/v30/hashtag/search.json
+/api/v2/pageinfo/get.json
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+/napi/v1/nc/fetch/notifications.json
+/napi/v2/nc/new/notifications.json
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+/album/v3/albums
+/album/v3/album/
+/album/v3/photo/
+/album/v3/photos/
+/album/v3/users/
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+/mapi/v39/status/newpost
+/mapi/v39/home/buddygroup/sync
+/mapi/v39/home/buddygroup/members
+/mapi/v39/contact/autoopen
+/mapi/v39/contact/autoopen/update
+/mapi/v39/contacts/block
+/mapi/v39/contact/block/add
+/mapi/v39/contact/release/add
+/mapi/v39/contacts/hide
+/mapi/v39/contact/hide
+/mapi/v39/contact/hide/add
+/mapi/v39/contact/hide/del
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
