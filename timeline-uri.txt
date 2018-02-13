@@ -1,6 +1,6 @@
 
 Base:	https://gd2.line.naver.jp/mh/api
-		https://gd2.line.naver.jp/mh/
+	https://gd2.line.naver.jp/mh/
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -30,6 +30,16 @@ Base:	https://gd2.line.naver.jp/mh/api
 /api/v24/otoaccount/sync.json
 /api/v24/otoaccount/get.json
 /api/v24/otoaccount/create.json
+
+/api/v33/relay/create.json
+/api/v33/relay/update.json
+/api/v33/relay/delete.json
+/api/v33/relay/members.json
+
+/api/v33/joinedrelay/create.json
+/api/v33/joinedrelay/update.json
+/api/v33/joinedrelay/list.json
+
 
 /api/v24/grouphome/hide/list.json
 /api/v39/home/updateCover.json
