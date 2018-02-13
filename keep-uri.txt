@@ -1,0 +1,9 @@
+/api/v21/keep/get.json
+/api/v21/keep/delete.json
+/api/v21/keep/size.json
+/api/v21/keep/init.json
+/api/v21/keep/create.json
+/api/v21/keep/update.json
+/api/v21/keep/sync.json
+/api/v21/keep/fetch.json
+/api/v21/keep/obs/delete.json
