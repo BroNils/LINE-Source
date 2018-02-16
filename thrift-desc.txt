@@ -1,5 +1,9 @@
+byte 0 -> stop
+byte 1 -> void
 byte 2 -> boolean
 byte 3 -> i64
+byte 4 -> double
+byte 6 -> i16
 byte 8 -> enum or i32
 byte 10 -> i64
 byte 11 -> string
@@ -7,3 +11,5 @@ byte 12 -> struct
 byte 13 -> map<byte, byte>
 byte 14 -> set<byte>
 byte 15 -> list<byte>
+byte 16 -> utf8
+byte 17 -> utf16
