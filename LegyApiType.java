@@ -40,3 +40,4 @@
     LIFF("/LIFF1"),
     WALLET("/WALLET4"),
     CHAT_APP("/CAPP1");
+    IOT("/IOT1");
