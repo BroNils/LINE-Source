@@ -1325,105 +1325,111 @@ enum IdentityResponseType {
 }
 
 enum AvailableChatTypes {
-	PERSONAL = 1;
-	ROOM = 2;
-	GROUP = 3;
-	SQUARE_CHAT = 4;
+    PERSONAL = 1;
+    ROOM = 2;
+    GROUP = 3;
+    SQUARE_CHAT = 4;
 }
 
 enum ChatAppExceptionCode {
-	INVALID_REQUEST = 1;
-	UNAUTHORIZED = 2;
-	SERVER_ERROR = 100;
+    INVALID_REQUEST = 1;
+    UNAUTHORIZED = 2;
+    SERVER_ERROR = 100;
 }
 
 enum ChatappCategory {
-	PRIORITY = 2;
-	REGULAR = 1;
-	MORE = 3;
+    PRIORITY = 2;
+    REGULAR = 1;
+    MORE = 3;
 }
 
 struct Chatapp {
-	1: string chatappId;
-	2: string name;
-	3: string icon;
-	4: string url;
-	5: list<AvailableChatTypes> availableChatTypes;
+    1: string chatappId;
+    2: string name;
+    3: string icon;
+    4: string url;
+    5: list<AvailableChatTypes> availableChatTypes;
 }
 
 struct MyChatapp {
-	1: Chatapp app;
-	2: ChatappCategory category;
-	3: i64 priority;
+    1: Chatapp app;
+    2: ChatappCategory category;
+    3: i64 priority;
 }
 
 struct GetMyChatappsResponse {
-	1: list<MyChatapp> apps;
-	2: string continuationToken;
+    1: list<MyChatapp> apps;
+    2: string continuationToken;
 }
 
 struct GetMyChatappsRequest {
-	1: string language;
-	2: string continuationToken;
+    1: string language;
+    2: string continuationToken;
 }
 
 struct GetChatappRequest {
-	1: string chatappId;
-	2: string language;
+    1: string chatappId;
+    2: string language;
 }
 
 struct ChatappException {
-	1: ChatAppExceptionCode code;
-	2: string reason;
+    1: ChatAppExceptionCode code;
+    2: string reason;
 }
 
 struct GetChatappResponse {
-	1: Chatapp app;
+    1: Chatapp app;
 }
 
 struct WebLoginResponse {
-	1: string returnUrl;
+    1: string returnUrl;
 }
 
 struct WebLoginRequest {
-	1: string hookedFullUrl;
-	2: string sessionString;
-	3: bool fromIAB;
+    1: string hookedFullUrl;
+    2: string sessionString;
+    3: bool fromIAB;
+}
+
+struct CallHost {
+    1: string host;
+    2: i32 port;
+    3: string zone;
 }
 
 struct TestCallRoute {
-	1: string token;
-	2: CallHost voipServer;
+    1: string token;
+    2: CallHost voipServer;
 }
 
 struct ProfileContent {
-	1: string value;
-	2: map<string, string> meta;
+    1: string value;
+    2: map<string, string> meta;
 }
 
 struct UpdateProfileAttributesRequest {
-	1: map<ProfileAttribute, ProfileContent> profileAttributes;
+    1: map<ProfileAttribute, ProfileContent> profileAttributes;
 }
 
 struct IdentityCredentialResponse {
     1: map<string, string> metaData;
-	2: IdentityResponseType responseType;
-	3: string confirmationVerifier;
-	4: i64 timeoutInSeconds;
+    2: IdentityResponseType responseType;
+    3: string confirmationVerifier;
+    4: i64 timeoutInSeconds;
 }
 
 struct IdentifierConfirmationRequest {
     1: map<string, string> metaData;
-	2: bool forceRegistration;
-	3: string verificationCode;
+    2: bool forceRegistration;
+    3: string verificationCode;
 }
 
 struct IdentityCredentialRequest {
     1: map<string, string> metaData;
-	2: IdentityProvider identityProvider;
-	3: string cipherKeyId;
-	4: string cipherText;
-	5: IdentifierConfirmationRequest confirmationRequest;
+    2: IdentityProvider identityProvider;
+    3: string cipherKeyId;
+    4: string cipherText;
+    5: IdentifierConfirmationRequest confirmationRequest;
 }
 
 struct AuthSessionRequest {
@@ -1442,7 +1448,7 @@ struct PromotionBuddyInfo {
 
 struct PromotionInstallInfo {
     1: string downloadUrl;
-	2: string customUrlSchema;
+    2: string customUrlSchema;
 }
 
 struct PromotionMissionInfo {
@@ -1477,7 +1483,7 @@ struct StickerProperty {
 
 struct ThemeProperty {
     1: string thumbnailUrl;
-	2: TRType themeResourceType;
+    2: TRType themeResourceType;
 }
 
 struct SticonProperty {
@@ -1492,22 +1498,22 @@ struct ProductProperty {
 
 struct ProductSearchSummary {
     1: string id;
-	2: PType type;
-	3: string name;
+    2: PType type;
+    3: string name;
     4: string author;
-	5: PromotionInfo promotionInfo;
-	6: i64 version;
-	7: bool newFlag;
-	8: i32 priceTier;
-	9: string priceInLineCoin;
-	10: ProductProperty property;
-	11: SubType subType;
-	12: bool onSale;
-	13: bool availableForPresent;
-	14: bool availableForPurchase;
-	15: i32 validDays;
-	16: string authorId;
-	17: bool saleFlag;
+    5: PromotionInfo promotionInfo;
+    6: i64 version;
+    7: bool newFlag;
+    8: i32 priceTier;
+    9: string priceInLineCoin;
+    10: ProductProperty property;
+    11: SubType subType;
+    12: bool onSale;
+    13: bool availableForPresent;
+    14: bool availableForPurchase;
+    15: i32 validDays;
+    16: string authorId;
+    17: bool saleFlag;
 }
 
 struct ServiceItem {
@@ -1545,7 +1551,7 @@ struct YellowpageItem {
     9: i32 k;
     10: string phoneNumber;
     11: i32 cat;
-	12: i32 categoryIcon;
+    12: i32 categoryIcon;
     13: list<AdditionalInfoItem> additionalInfo;
 }
 
@@ -1610,6 +1616,48 @@ struct SQCat {
     2: string name;
 }
 
+struct SpotItem {
+    2: string name;
+    3: string phone;
+    4: SpotCategory category;
+    5: string mid;
+    6: string countryAreaCode;
+    10: bool freePhoneCallable;
+}
+
+struct Square {
+    1: string mid;
+    2: string name;
+    3: string welcomeMessage;
+    4: string profileImageObsHash;
+    5: string desc;
+    6: bool searchable;
+    7: SquareType type;
+    8: i32 categoryID;
+    9: string invitationURL;
+    10: i64 revision;
+    11: bool ableToUseInvitationTicket;
+    12: SquareState state;
+}
+
+struct SquareStatus {
+    1: i32 memberCount;
+    2: i32 joinRequestCount;
+    3: i64 lastJoinRequestAt;
+    4: i32 openChatCount;
+}
+
+struct NoteStatus {
+    1: i32 noteCount;
+    2: i64 latestCreatedAt;
+}
+
+struct SquareInfo {
+    1: Square square;
+    2: SquareStatus squareStatus;
+    3: NoteStatus squareNoteStatus;
+}
+
 struct SearchItemUnion {
     1: CategoryItem categoryItem;
     2: SpotItem spotItem;
@@ -1625,54 +1673,54 @@ struct SearchItemUnion {
 
 struct SearchResultItem {
     1: string id;
-	2: i32 ItemType;
-	3: SearchItemUnion item;
-	4: string title;
-	5: string sub1;
-	6: string sub2;
-	7: string iconUrl;
-	8: string titleLink;
-	9: string iconLink;
-	10: string displayTemplate;
-	11: list<AdditionalInfoItem> additionalInfo;
+    2: i32 ItemType;
+    3: SearchItemUnion item;
+    4: string title;
+    5: string sub1;
+    6: string sub2;
+    7: string iconUrl;
+    8: string titleLink;
+    9: string iconLink;
+    10: string displayTemplate;
+    11: list<AdditionalInfoItem> additionalInfo;
 }
 
 struct SearchResultCollection {
     1: i32 collection;
-	2: string title;
-	3: i32 rank;
-	4: i32 hits;
-	5: list<SearchResultItem> items;
-	6: bool hasNext;
-	7: list<i32> cat;
-	8: string error;
-	9: string tabTitle;
-	10: i32 start;
-	11: i32 length;
-	12: i32 squareCategoryId;
+    2: string title;
+    3: i32 rank;
+    4: i32 hits;
+    5: list<SearchResultItem> items;
+    6: bool hasNext;
+    7: list<i32> cat;
+    8: string error;
+    9: string tabTitle;
+    10: i32 start;
+    11: i32 length;
+    12: i32 squareCategoryId;
 }
 
 struct SearchResult {
     1: string sid;
-	2: list<SearchResultCollection> collections;
-	3: i32 start;
-	4: i32 length;
+    2: list<SearchResultCollection> collections;
+    3: i32 start;
+    4: i32 length;
 }
 
 struct SearchCommonParameter {
     1: double latitude;
-	2: double longitude;
-	3: string source;
-	4: string region;
-	5: string sid;
-	6: i32 queryType;
+    2: double longitude;
+    3: string source;
+    4: string region;
+    5: string sid;
+    6: i32 queryType;
 }
 
 struct SearchPagingParameter {
     1: i32 collection;
-	2: i32 start;
-	3: i32 length;
-	4: SearchCommonParameter commonParam;
+    2: i32 start;
+    3: i32 length;
+    4: SearchCommonParameter commonParam;
 }
 
 struct Location {
@@ -1700,12 +1748,6 @@ struct MessageCommitResult {
     15: i64 unregisteredCount;
     16: i64 unrelatedCount;
     21: string errorDescription;
-}
-
-struct CallHost {
-    1: string host;
-    2: i32 port;
-    3: string zone;
 }
 
 struct AgeCheckDocomoResult {
@@ -1771,21 +1813,6 @@ struct OTPResult {
     2: string otp;
 }
 
-struct Square {
-    1: string mid;
-    2: string name;
-    3: string welcomeMessage;
-    4: string profileImageObsHash;
-    5: string desc;
-    6: bool searchable;
-    7: SquareType type;
-    8: i32 categoryID;
-    9: string invitationURL;
-    10: i64 revision;
-    11: bool ableToUseInvitationTicket;
-    12: SquareState state;
-}
-
 struct SquareAuthority {
     1: string squareMid;
     2: SquareMemberRole updateSquareProfile;
@@ -1835,13 +1862,6 @@ struct SquareFeatureSet {
     12: SquareFeature invitingIntoOpenSquareChat;
 }
 
-struct SquareStatus {
-    1: i32 memberCount;
-    2: i32 joinRequestCount;
-    3: i64 lastJoinRequestAt;
-    4: i32 openChatCount;
-}
-
 struct SquareChat {
     1: string squareChatMid;
     2: string squareMid;
@@ -1851,17 +1871,6 @@ struct SquareChat {
     6: i64 squareChatRevision;
     7: i32 maxMemberCount;
     8: SquareChatState state;
-}
-
-struct NoteStatus {
-    1: i32 noteCount;
-    2: i64 latestCreatedAt;
-}
-
-struct SquareInfo {
-    1: Square square;
-    2: SquareStatus squareStatus;
-    3: NoteStatus squareNoteStatus;
 }
 
 struct BotUseInfo {
@@ -1934,15 +1943,6 @@ struct PaidCallDialing {
     20: i32 adMaxMin;
     21: i32 adRemains;
     22: string adSessionId;
-}
-
-struct SpotItem {
-    2: string name;
-    3: string phone;
-    4: SpotCategory category;
-    5: string mid;
-    6: string countryAreaCode;
-    10: bool freePhoneCallable;
 }
 
 struct SpotNearbyItem {
@@ -2096,7 +2096,7 @@ struct Contact {
     39: FriendRequestStatus friendRequestStatus;
     40: string musicProfile;
     42: string videoProfile;
-	43: map<string, string> statusMessageContentMetadata;
+    43: map<string, string> statusMessageContentMetadata;
 }
 
 struct BuddyList {
@@ -2144,6 +2144,34 @@ struct BuddyProfile {
     4: string displayName;
     5: string statusMessage;
     11: i64 contactCount;
+}
+
+struct Message {
+    1: string _from;
+    99: string displayName;
+    98: string picturePath;
+    97: string type;
+    96: string person;
+    95: string person2;
+    94: string personName;
+    93: string personName2;
+    2: string to;
+    3: MIDType toType;
+    4: string id;
+    5: i64 createdTime;
+    6: i64 deliveredTime;
+    10: string text;
+    11: Location location;
+    14: bool hasContent;
+    15: ContentType contentType;
+    17: binary contentPreview;
+    18: map<string, string> contentMetadata;
+    19: i16 sessionId;
+    20: list<binary> chunks;
+    21: string relatedMessageId;
+    22: MessageRelationType messageRelationType;
+    23: i32 readCount;
+    24: ServiceCode relatedMessageServiceCode;
 }
 
 struct CommitMessageResult {
@@ -2450,9 +2478,9 @@ struct Group {
     21: Contact creator;
     22: list<Contact> invitee;
     31: bool notificationDisabled;
-	32: string picturePath;
-	40: list<string> memberMids;
-	41: list<string> inviteeMids;
+    32: string picturePath;
+    40: list<string> memberMids;
+    41: list<string> inviteeMids;
 }
 
 struct IdentityCredential {
@@ -2479,7 +2507,7 @@ struct VerificationSessionData {
     5: string countryCode;
     6: string nationalSignificantNumber;
     7: list<VerificationMethod> availableVerificationMethods;
-	8: string callerIdMask;
+    8: string callerIdMask;
 }
 
 struct LoginResult {
@@ -2513,34 +2541,6 @@ struct LoginSession {
     11: ApplicationType applicationType;
     12: string systemName;
     22: string accessLocation;
-}
-
-struct Message {
-    1: string _from;
-	99: string displayName;
-	98: string picturePath;
-	97: string type;
-	96: string person;
-	95: string person2;
-	94: string personName;
-	93: string personName2;
-    2: string to;
-    3: MIDType toType;
-    4: string id;
-    5: i64 createdTime;
-    6: i64 deliveredTime;
-    10: string text;
-    11: Location location;
-    14: bool hasContent;
-    15: ContentType contentType;
-    17: binary contentPreview;
-    18: map<string, string> contentMetadata;
-    19: i8 sessionId;
-    20: list<binary> chunks;
-    21: string relatedMessageId;
-    22: MessageRelationType messageRelationType;
-    23: i32 readCount;
-    24: ServiceCode relatedMessageServiceCode;
 }
 
 struct SquareMessage {
@@ -2767,6 +2767,16 @@ struct SuggestDictionary {
     2: string name;
 }
 
+enum SuggestDictionaryIncrementStatus {
+    SUCCESS = 0;
+    INVALID_REVISION = 1;
+    TOO_LARGE_DATA = 2;
+    SCHEME_CHANGED = 3;
+    RETRY = 4;
+    FAIL = 5;
+    TOO_OLD_DATA = 6;
+}
+
 struct SuggestItemDictionaryIncrement {
     1: SuggestDictionaryIncrementStatus status;
     2: i64 revision;
@@ -2785,16 +2795,6 @@ struct SuggestTagDictionaryIncrement {
 struct SuggestDictionaryIncrements {
     1: SuggestItemDictionaryIncrement itemIncrement;
     2: list<SuggestTagDictionaryIncrement> tagIncrements;
-}
-
-enum SuggestDictionaryIncrementStatus {
-    SUCCESS = 0;
-    INVALID_REVISION = 1;
-    TOO_LARGE_DATA = 2;
-    SCHEME_CHANGED = 3;
-    RETRY = 4;
-    FAIL = 5;
-    TOO_OLD_DATA = 6;
 }
 
 struct SuggestItemDictionaryRevision {
@@ -3897,7 +3897,7 @@ struct UpdateBuddyProfileResult {
 struct UserAuthStatus {
     1: bool phoneNumberRegistered;
     2: list<SnsIdType> registeredSnsIdTypes;
-	3: AccountMigrationCheckType accountMigrationCheckType;
+    3: AccountMigrationCheckType accountMigrationCheckType;
 }
 
 struct WapInvitation {
@@ -4614,8 +4614,8 @@ service SnsAdaptorService {
 service TalkService {
 
     SearchResult searchCollection(
-	    1: string query,
-		2: SearchPagingParameter param) throws (1: TalkException e);
+        1: string query,
+        2: SearchPagingParameter param) throws (1: TalkException e);
 
     map<string, list<ChatRoomAnnouncement>> getChatRoomAnnouncementsBulk(
         2: list<string> chatRoomMids) throws (1: TalkException e);
@@ -5504,10 +5504,10 @@ service TalkService {
         1: i32 reqSeq,
         2: ProfileAttribute attr,
         3: string value) throws(1: TalkException e);
-		
-	void updateProfileAttributes(
-		1: i32 reqSeq;
-		2: UpdateProfileAttributesRequest request;
+        
+    void updateProfileAttributes(
+        1: i32 reqSeq;
+        2: UpdateProfileAttributesRequest request) throws(1: TalkException e);
 
     void updateRegion(
         2: string region) throws(1: TalkException e);
@@ -5788,15 +5788,15 @@ service CallService {
 service AuthService {
 
     IdentityCredentialResponse updatePassword(
-	    2: string authSessionId,
-		3: IdentityCredentialRequest request) throws (1: TalkException e);
+        2: string authSessionId,
+        3: IdentityCredentialRequest request) throws (1: TalkException e);
 
     RSAKey getAuthRSAKey(
-	    2: string authSessionId,
-		3: IdentityProvider identityProvider) throws (1: TalkException e);
+        2: string authSessionId,
+        3: IdentityProvider identityProvider) throws (1: TalkException e);
 
     string openAuthSession(
-	    2: AuthSessionRequest request) throws (1: TalkException e);
+        2: AuthSessionRequest request) throws (1: TalkException e);
 
     string normalizePhoneNumber(
         2: string countryCode,
@@ -6001,22 +6001,24 @@ service SquareService {
     
 }
 
+/*
 service Chatapp {
 
-	GetChatappResponse getChatapp(
-		1: GetChatappRequest request
-	) throws(1: ChatappException e);
-	
-	GetMyChatappsResponse getMyChatapps(
-		1: GetMyChatappsRequest request
-	) throws(1: ChatappException e);
-	
+    GetChatappResponse getChatapp(
+        1: GetChatappRequest request
+    ) throws(1: ChatappException e);
+    
+    GetMyChatappsResponse getMyChatapps(
+        1: GetMyChatappsRequest request
+    ) throws(1: ChatappException e);
+    
 }
+*/
 
 service Longpolling {
 
-	bool wakeUpLongPolling(
-		2: i64 wakeUpLongPolling
-	) throws(1: TalkException e);
+    bool wakeUpLongPolling(
+        2: i64 wakeUpLongPolling
+    ) throws(1: TalkException e);
 
 }
