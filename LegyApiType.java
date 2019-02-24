@@ -4,6 +4,8 @@
     NORMAL_POLLING("/NP4"),
     NORMAL("/S4"),
     COMPACT_MESSAGE("/C5"),
+    COMPACT_PLAIN_MESSAGE("/CA5"),
+    COMPACT_E2EE_MESSAGE("/ECA5"),
     REGISTRATION("/api/v4/TalkService.do"),
     NOTIFY_SLEEP("/F4"),
     NOTIFY_BACKGROUND("/B"),
@@ -33,11 +35,14 @@
     BEACON("/BEACON4"),
     PERSONA("/PS4"),
     SQUARE("/SQS1"),
+    SQUARE_BOT("/BP1"),
     POINT("/POINT4"),
     COIN("/COIN4"),
     BAN("/BAN4"),
     BAN_REGISTRATION("/api/v4p/ban"),
     LIFF("/LIFF1"),
     WALLET("/WALLET4"),
-    CHAT_APP("/CAPP1");
-    IOT("/IOT1");
+    CHAT_APP("/CAPP1"),
+    IOT("/IOT1"),
+    USER_PROVIDED_DATA("/UPD4"),
+    NEW_REGISTRATION("/acct/pais/v1");
