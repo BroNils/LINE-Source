@@ -1,0 +1,38 @@
+# This service call is has been discovered but don't know how to use and where to use
+# Contact me if you have discovered it, report or contact my github.com/GoogleX133
+
+service undiscoveredNew {
+		
+	x registerE2EEGroupKey(
+		2: i32 keyVersion,
+		3: string chatMid,
+		4: list<string> members,
+		5: list<i32> keyIds,
+		6: list<string> encryptedSharedKeys) throws(1: unknownDException e);
+		
+	x reportAbuse(
+		2: AbuseReport abuseReport) throws(1: unknownDException e);
+		
+	x reportDeviceState(
+		2: map<uBooleanState, boolean> booleanState,
+		3: map<StringState, string> stringState) throws(1: unknownDException e);
+		
+	x respondE2EEKeyExchange(
+		1: i32 reqSeq,
+		2: string encryptedKeyChain,
+		3: string hashKeyChain) throws(1: unknownDException e);
+		
+	x sendPostBack(
+		1: SendPostbackRequest request) throws(1: unknownDException e);
+		
+	x updateAndGetNearby(
+		2: double latitude,
+		3: double longitude,
+		4: GeolocationAccuracy accuracy,
+		5: ClientNetworkStatus networkStatus) throws(1: unknownDException e);
+		
+	x updateChatRoomBGM(
+		1: i32 reqSeq,
+		2: string chatRoomMid,
+		3: string chatRoomBGMInfo) throws(1: unknownDException e);
+}
