@@ -33,7 +33,7 @@ This is how i obtain the thrift file and make it human-readable form:
         -  `(byte) 12` is a type of a field. (12 = struct)
         -  `1` is the id of a field.
   - After that, you have to scroll down a little bit and you'll get like this
-    - ![struct class](https://i.ibb.co/XC5F9sg/Screenshot-278.png "Struct class")
+    - ![struct class](https://i.ibb.co/XC5F9sg/Screenshot-278.png "Struct static")
     - As you can see, it's similar to the struct builder before. But this one is more useful for gathering more information.
     - So, if you found a field with `struct`,`enum`,`map<byte,byte>`,`set<byte>`,`list<byte>` type. You should gather information on `static {.....}` scope (like image above).
   - And now you can make it into human-readable form, the result must be like this
