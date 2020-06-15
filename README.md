@@ -3,10 +3,12 @@
 Project of Reverse Engineering LINE Messaging App (for education purpose)
 
 # INFO
-This project was carried out in order to obtain and rewrite the thrift file of LINE Thrift Protocol (client-side). This is for education purpose only!
+This project was carried out in order to obtain and make the thrift file of LINE Thrift Protocol (client-side).
+
+And also, feel free to contribute :smile:
 
 # Prerequisites
-Before doing this, you need to have this on your computer (i'm using windows):
+Before doing this, you need to have this on you:
   - Java 1.8 or greater ([Get it here](https://www.java.com/en/))
   - Thrift types understanding on a compiled thrift ([Read this](https://github.com/BroNils/LINE-Source/blob/master/thrift-desc.txt))
   - Some apk decompiler (I'm using [jadx](https://github.com/skylot/jadx))
