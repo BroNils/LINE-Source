@@ -3,7 +3,7 @@
 Project of Reverse Engineering LINE Messaging App (for education purpose)
 
 # INFO
-This project was carried out in order to obtain and rewrite the thrift file of LINE Thrift Protocol (client-side). And for the education purpose only!
+This project was carried out in order to obtain and rewrite the thrift file of LINE Thrift Protocol (client-side). This is for education purpose only!
 
 # Prerequisites
 Before doing this, you need to have this on your computer (i'm using windows):
